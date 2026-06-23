@@ -24,8 +24,12 @@ export interface TimerState {
   startedAt: number | null;
   endedAt: number | null;
   animation: Animation;
+  finalMessage: string;
   status: Status;
 }
+
+export const DEFAULT_FINAL_MESSAGE = "Time's Up!";
+export const MAX_FINAL_MESSAGE = 80;
 
 export const STORAGE_KEY = "timer-app";
 
@@ -38,6 +42,7 @@ export function createInitialState(): TimerState {
     startedAt: null,
     endedAt: null,
     animation: "default",
+    finalMessage: DEFAULT_FINAL_MESSAGE,
     status: "setup",
   };
 }
