@@ -189,15 +189,53 @@ export default function TimerApp() {
         onPause={pause}
         onResume={resume}
         onCancel={reset}
-        isFullscreen={isFullscreen}
-        onToggleFullscreen={toggleFullscreen}
       />
     );
   }
 
   return (
-    <div ref={rootRef} className="flex flex-1 flex-col bg-background">
+    <div ref={rootRef} className="relative flex flex-1 flex-col bg-background">
+      <button
+        type="button"
+        onClick={toggleFullscreen}
+        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+        className="absolute right-6 top-6 z-30 rounded-lg border border-card-border bg-card p-2.5 text-muted transition-colors hover:text-foreground"
+      >
+        <FullscreenIcon expanded={isFullscreen} />
+      </button>
       {content}
     </div>
+  );
+}
+
+function FullscreenIcon({ expanded }: { expanded: boolean }) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      {expanded ? (
+        <>
+          <path d="M8 3v5H3" />
+          <path d="M21 8h-5V3" />
+          <path d="M3 16h5v5" />
+          <path d="M16 21v-5h5" />
+        </>
+      ) : (
+        <>
+          <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+          <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+          <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+          <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+        </>
+      )}
+    </svg>
   );
 }

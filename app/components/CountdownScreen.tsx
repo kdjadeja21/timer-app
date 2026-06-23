@@ -10,8 +10,6 @@ interface CountdownScreenProps {
   onPause: () => void;
   onResume: () => void;
   onCancel: () => void;
-  isFullscreen: boolean;
-  onToggleFullscreen: () => void;
 }
 
 export default function CountdownScreen({
@@ -19,8 +17,6 @@ export default function CountdownScreen({
   onPause,
   onResume,
   onCancel,
-  isFullscreen,
-  onToggleFullscreen,
 }: CountdownScreenProps) {
   const paused = state.status === "paused";
   const remaining = state.remainingSeconds;
@@ -34,15 +30,6 @@ export default function CountdownScreen({
 
   return (
     <div className="relative flex flex-1 flex-col items-center justify-center bg-background px-6 py-10">
-      <button
-        type="button"
-        onClick={onToggleFullscreen}
-        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-        className="absolute right-6 top-6 rounded-lg border border-card-border bg-card p-2.5 text-muted transition-colors hover:text-foreground"
-      >
-        <FullscreenIcon expanded={isFullscreen} />
-      </button>
-
       <CursorLogo />
 
       {state.description && (
@@ -97,37 +84,5 @@ export default function CountdownScreen({
         </button>
       </div>
     </div>
-  );
-}
-
-function FullscreenIcon({ expanded }: { expanded: boolean }) {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      {expanded ? (
-        <>
-          <path d="M8 3v5H3" />
-          <path d="M21 8h-5V3" />
-          <path d="M3 16h5v5" />
-          <path d="M16 21v-5h5" />
-        </>
-      ) : (
-        <>
-          <path d="M8 3H5a2 2 0 0 0-2 2v3" />
-          <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
-          <path d="M3 16v3a2 2 0 0 0 2 2h3" />
-          <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
-        </>
-      )}
-    </svg>
   );
 }
