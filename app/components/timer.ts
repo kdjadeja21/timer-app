@@ -1,4 +1,19 @@
 export type Animation = "default" | "flip" | "slide" | "fade";
+
+export interface AnimationOptionConfig {
+  value: Animation;
+  label: string;
+  description: string;
+}
+
+// Single source of truth for available animations. Add new entries here and
+// they automatically appear in the setup dropdown.
+export const ANIMATION_OPTIONS: AnimationOptionConfig[] = [
+  { value: "default", label: "Default", description: "Clean digit cards" },
+  { value: "flip", label: "Flip", description: "Flip-clock motion" },
+  { value: "slide", label: "Slide", description: "Odometer roll" },
+  { value: "fade", label: "Fade", description: "Blur crossfade" },
+];
 export type Status = "setup" | "running" | "paused" | "done";
 
 export interface TimerState {

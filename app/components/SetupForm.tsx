@@ -5,6 +5,7 @@ import { Animation } from "./timer";
 import CursorLogo from "./CursorLogo";
 import CardClock from "./CardClock";
 import FlipClock from "./FlipClock";
+import AnimationSelect from "./AnimationSelect";
 
 const MAX_DESCRIPTION = 80;
 
@@ -132,32 +133,7 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
             {/* Animation selection */}
             <div className="mt-8 w-full">
               <span className="block text-sm font-semibold mb-2">Animation</span>
-              <div className="grid grid-cols-2 gap-4">
-                <AnimationOption
-                  label="Default"
-                  description="Clean digit cards"
-                  selected={animation === "default"}
-                  onSelect={() => setAnimation("default")}
-                />
-                <AnimationOption
-                  label="Flip"
-                  description="Flip-clock motion"
-                  selected={animation === "flip"}
-                  onSelect={() => setAnimation("flip")}
-                />
-                <AnimationOption
-                  label="Slide"
-                  description="Odometer roll"
-                  selected={animation === "slide"}
-                  onSelect={() => setAnimation("slide")}
-                />
-                <AnimationOption
-                  label="Fade"
-                  description="Blur crossfade"
-                  selected={animation === "fade"}
-                  onSelect={() => setAnimation("fade")}
-                />
-              </div>
+              <AnimationSelect value={animation} onChange={setAnimation} />
             </div>
 
             {/* Live preview */}
@@ -250,33 +226,5 @@ function DurationField({
       />
       <span className="text-xs text-muted">{label}</span>
     </label>
-  );
-}
-
-function AnimationOption({
-  label,
-  description,
-  selected,
-  onSelect,
-}: {
-  label: string;
-  description: string;
-  selected: boolean;
-  onSelect: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      aria-pressed={selected}
-      className={`flex flex-col items-start rounded-xl border px-5 py-4 text-left transition-colors ${
-        selected
-          ? "border-foreground bg-card"
-          : "border-card-border bg-card/40 hover:border-foreground/40"
-      }`}
-    >
-      <span className="text-base font-semibold">{label}</span>
-      <span className="text-xs text-muted">{description}</span>
-    </button>
   );
 }
