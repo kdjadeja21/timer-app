@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Timer App
+
+A Cursor-branded countdown timer built with Next.js. Set a duration, pick a clock animation, and run a fullscreen-friendly countdown with pause, resume, and a summary when time is up.
+
+## Features
+
+- **Two-step setup** — name your timer, set hours/minutes/seconds, then choose an animation style
+- **Clock animations** — card (default), flip, slide, and fade styles
+- **Live countdown** — progress bar, end time, pause/resume, and cancel
+- **Fullscreen mode** — expand the countdown for presentations or shared screens
+- **Persistent state** — timer progress is saved in `localStorage` and survives page refreshes
+- **Time's up screen** — confetti celebration with a summary of start, end, and duration
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command        | Description              |
+| -------------- | ------------------------ |
+| `npm run dev`  | Start development server |
+| `npm run build`| Build for production     |
+| `npm run start`| Run production build     |
+| `npm run lint` | Run ESLint               |
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js](https://nextjs.org) 16 (App Router)
+- [React](https://react.dev) 19
+- [Tailwind CSS](https://tailwindcss.com) 4
+- [canvas-confetti](https://github.com/catdad/canvas-confetti) for the celebration effect
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+├── components/
+│   ├── TimerApp.tsx       # Main app shell and state management
+│   ├── SetupForm.tsx      # Timer configuration flow
+│   ├── CountdownScreen.tsx# Running/paused countdown view
+│   ├── TimesUp.tsx        # Completion screen and summary
+│   ├── CardClock.tsx      # Default card-style digits
+│   ├── FlipClock.tsx      # Flip-clock animation
+│   └── timer.ts           # Shared types and utilities
+├── layout.tsx
+├── page.tsx
+└── globals.css
+```

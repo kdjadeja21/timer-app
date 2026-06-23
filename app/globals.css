@@ -1,26 +1,280 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ededed;
+  --card: #161616;
+  --card-border: #262626;
+  --muted: #8a8a8a;
+  --accent: #ededed;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-muted: var(--muted);
+  --font-sans: "Cursor Gothic", var(--font-inter), system-ui, -apple-system,
+    sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Cursor Gothic", var(--font-inter), system-ui, -apple-system,
+    sans-serif;
+}
+
+/* Match the wordmark's editorial display feel: tight negative tracking. */
+h1,
+h2 {
+  letter-spacing: -0.02em;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ---------------------------------------------------------------- */
+/* Default clock: subtle change animation                           */
+/* ---------------------------------------------------------------- */
+@keyframes digitPop {
+  0% {
+    transform: translateY(-8%);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.digit-pop {
+  animation: digitPop 0.35s ease-out;
+}
+
+/* Slide: odometer-style vertical roll-in (clipped by the card). */
+@keyframes digitSlide {
+  0% {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.digit-slide {
+  animation: digitSlide 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Fade: soft blur + scale crossfade. */
+@keyframes digitFade {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.18);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+.digit-fade {
+  animation: digitFade 0.5s ease-out;
+}
+
+/* ---------------------------------------------------------------- */
+/* Flip clock (codepen doriancami jEJvaV style)                     */
+/* ---------------------------------------------------------------- */
+.flip-clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 3vw, 2.5rem);
+}
+
+.flip-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.flip-groups {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.flip-label {
+  font-size: clamp(0.6rem, 1.4vw, 0.85rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.flip-separator {
+  font-size: clamp(2.5rem, 9vw, 6rem);
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1;
+  align-self: flex-start;
+  margin-top: clamp(1.5rem, 5vw, 3.5rem);
+}
+
+/* A single flipping digit card */
+.flip-card {
+  position: relative;
+  width: clamp(3rem, 9vw, 6.5rem);
+  height: clamp(4.5rem, 13vw, 9.5rem);
+  font-size: clamp(2.75rem, 9vw, 6.5rem);
+  font-weight: 600;
+  line-height: clamp(4.5rem, 13vw, 9.5rem);
+  text-align: center;
+  perspective: 400px;
+  color: var(--foreground);
+}
+
+.flip-card .card-half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+}
+
+.flip-card .card-half span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 200%;
+}
+
+.flip-card .top {
+  top: 0;
+  border-bottom-width: 0;
+  border-radius: 0.75rem 0.75rem 0 0;
+  align-items: flex-end;
+}
+.flip-card .top span {
+  top: 0;
+}
+
+.flip-card .bottom {
+  bottom: 0;
+  border-top-width: 0;
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+.flip-card .bottom span {
+  bottom: 0;
+}
+
+/* Center divider line */
+.flip-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(50% - 1px);
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 5;
+}
+
+/* Animated (flipping) halves overlaid on top of the static ones */
+.flip-card .flip-top,
+.flip-card .flip-bottom {
+  z-index: 4;
+}
+
+.flip-card .flip-top {
+  transform-origin: bottom;
+  animation: flipTop 0.45s ease-in forwards;
+  backface-visibility: hidden;
+}
+
+.flip-card .flip-bottom {
+  transform-origin: top;
+  transform: rotateX(90deg);
+  animation: flipBottom 0.45s ease-out 0.45s forwards;
+  backface-visibility: hidden;
+}
+
+@keyframes flipTop {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes flipBottom {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Time's up celebration                                            */
+/* ---------------------------------------------------------------- */
+@keyframes screenGlow {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.celebration-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.18),
+    transparent 60%
+  );
+  animation: screenGlow 1.6s ease-out forwards;
+  z-index: 30;
+}
+
+@keyframes riseIn {
+  0% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.rise-in {
+  animation: riseIn 0.6s ease-out both;
 }
