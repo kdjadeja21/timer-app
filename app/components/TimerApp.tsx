@@ -132,7 +132,7 @@ export default function TimerApp() {
   }, [state, baseState.status]);
 
   const startCountdown = useCallback(
-    (description: string, totalSeconds: number, animation: Animation) => {
+    (description: string, totalSeconds: number, animation: Animation, finalMessage: string) => {
       const startedAt = Date.now();
       setNow(startedAt);
       writeState({
@@ -143,6 +143,7 @@ export default function TimerApp() {
         startedAt,
         endedAt: null,
         animation,
+        finalMessage,
         status: "running",
       });
     },

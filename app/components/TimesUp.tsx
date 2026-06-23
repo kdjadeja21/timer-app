@@ -2,6 +2,7 @@
 
 import {
   TimerState,
+  DEFAULT_FINAL_MESSAGE,
   formatClock,
   formatDate,
   formatTimeOfDay,
@@ -28,8 +29,8 @@ export default function TimesUp({ state, onReset }: TimesUpProps) {
         <div className="mt-8 text-5xl" aria-hidden>
           🎉
         </div>
-        <h1 className="mt-4 text-5xl sm:text-6xl font-bold tracking-tight">
-          Time&apos;s Up!
+        <h1 className="mt-4 text-5xl sm:text-6xl font-bold tracking-tight text-center">
+          {state.finalMessage || DEFAULT_FINAL_MESSAGE}
         </h1>
         {state.description && (
           <p className="mt-3 text-lg text-muted">{state.description}</p>
