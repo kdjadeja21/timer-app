@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Animation } from "./timer";
 import CursorLogo from "./CursorLogo";
+import CardClock from "./CardClock";
+import FlipClock from "./FlipClock";
 import AnimationSelect from "./AnimationSelect";
 
 const MAX_DESCRIPTION = 80;
@@ -106,6 +108,9 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
         <div className="mt-6 w-full">
           <span className="block text-sm font-semibold mb-2">Animation</span>
           <AnimationSelect value={animation} onChange={setAnimation} />
+          <div className="mt-3">
+            <AnimationPreview animation={animation} />
+          </div>
         </div>
 
         <button
@@ -117,6 +122,29 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
         </button>
       </form>
     </main>
+  );
+}
+
+function AnimationPreview({ animation }: { animation: Animation }) {
+  const [seconds, setSeconds] = useState(125);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSeconds((value) => (value <= 1 ? 125 : value - 1));
+    }, 1200);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="flex h-[170px] items-center justify-center overflow-hidden rounded-xl border border-card-border bg-card/40">
+      <div className="origin-center scale-[0.42]">
+        {animation === "flip" ? (
+          <FlipClock seconds={seconds} />
+        ) : (
+          <CardClock seconds={seconds} variant={animation} />
+        )}
+      </div>
+    </div>
   );
 }
 
