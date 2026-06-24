@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Animation } from "./timer";
 import CursorLogo from "./CursorLogo";
-import CardClock from "./CardClock";
-import FlipClock from "./FlipClock";
 import AnimationSelect from "./AnimationSelect";
 
 const MAX_DESCRIPTION = 80;
@@ -25,7 +23,6 @@ function clampNumber(raw: string, max: number): number {
 }
 
 export default function SetupForm({ onStart, initialAnimation }: SetupFormProps) {
-  const [step, setStep] = useState<1 | 2>(1);
   const [description, setDescription] = useState("");
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -39,14 +36,7 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (step === 1) {
-      if (canProceed) setStep(2);
-      return;
-    }
-    if (!canProceed) {
-      setStep(1);
-      return;
-    }
+    if (!canProceed) return;
     onStart(description, totalSeconds, animation);
   };
 
@@ -61,145 +51,72 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
         <h1 className="mt-10 text-4xl sm:text-5xl font-semibold tracking-tight text-center">
           Timer App
         </h1>
-        <p className="mt-3 text-muted text-center">
-          {step === 1
-            ? "Set up your countdown timer"
-            : "Choose an animation and preview your countdown"}
-        </p>
+        <p className="mt-3 text-muted text-center">Set up your countdown timer</p>
 
-        <StepIndicator step={step} />
+        {/* Description */}
+        <div className="mt-8 w-full">
+          <label
+            htmlFor="description"
+            className="block text-sm font-semibold mb-2"
+          >
+            Description <span className="text-muted">*</span>
+          </label>
+          <input
+            id="description"
+            type="text"
+            value={description}
+            maxLength={MAX_DESCRIPTION}
+            required
+            autoFocus
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="e.g., Team Standup"
+            className="w-full rounded-xl bg-card border border-card-border px-5 py-4 text-lg outline-none transition-colors placeholder:text-muted focus:border-foreground/40"
+          />
+          <div className="mt-1 text-right text-xs text-muted">
+            {description.length}/{MAX_DESCRIPTION}
+          </div>
+        </div>
 
-        {step === 1 ? (
-          <>
-            {/* Description */}
-            <div className="mt-8 w-full">
-              <label
-                htmlFor="description"
-                className="block text-sm font-semibold mb-2"
-              >
-                Description <span className="text-muted">*</span>
-              </label>
-              <input
-                id="description"
-                type="text"
-                value={description}
-                maxLength={MAX_DESCRIPTION}
-                required
-                autoFocus
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="e.g., Team Standup"
-                className="w-full rounded-xl bg-card border border-card-border px-5 py-4 text-lg outline-none transition-colors placeholder:text-muted focus:border-foreground/40"
-              />
-              <div className="mt-1 text-right text-xs text-muted">
-                {description.length}/{MAX_DESCRIPTION}
-              </div>
-            </div>
+        {/* Duration */}
+        <div className="mt-6 w-full">
+          <span className="block text-sm font-semibold mb-2">Duration</span>
+          <div className="grid grid-cols-3 gap-4">
+            <DurationField
+              label="Hours"
+              value={hours}
+              max={99}
+              onChange={setHours}
+            />
+            <DurationField
+              label="Minutes"
+              value={minutes}
+              max={59}
+              onChange={setMinutes}
+            />
+            <DurationField
+              label="Seconds"
+              value={seconds}
+              max={59}
+              onChange={setSeconds}
+            />
+          </div>
+        </div>
 
-            {/* Duration */}
-            <div className="mt-6 w-full">
-              <span className="block text-sm font-semibold mb-2">Duration</span>
-              <div className="grid grid-cols-3 gap-4">
-                <DurationField
-                  label="Hours"
-                  value={hours}
-                  max={99}
-                  onChange={setHours}
-                />
-                <DurationField
-                  label="Minutes"
-                  value={minutes}
-                  max={59}
-                  onChange={setMinutes}
-                />
-                <DurationField
-                  label="Seconds"
-                  value={seconds}
-                  max={59}
-                  onChange={setSeconds}
-                />
-              </div>
-            </div>
+        {/* Animation */}
+        <div className="mt-6 w-full">
+          <span className="block text-sm font-semibold mb-2">Animation</span>
+          <AnimationSelect value={animation} onChange={setAnimation} />
+        </div>
 
-            <button
-              type="submit"
-              disabled={!canProceed}
-              className="mt-8 w-full rounded-xl bg-foreground px-5 py-4 text-lg font-semibold text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Next
-            </button>
-          </>
-        ) : (
-          <>
-            {/* Animation selection */}
-            <div className="mt-8 w-full">
-              <span className="block text-sm font-semibold mb-2">Animation</span>
-              <AnimationSelect value={animation} onChange={setAnimation} />
-            </div>
-
-            {/* Live preview */}
-            <div className="mt-6 w-full">
-              <span className="block text-sm font-semibold mb-2">Preview</span>
-              <AnimationPreview animation={animation} />
-            </div>
-
-            <div className="mt-8 grid w-full grid-cols-[auto_1fr] gap-4">
-              <button
-                type="button"
-                onClick={() => setStep(1)}
-                className="rounded-xl border border-card-border bg-card px-6 py-4 text-lg font-medium text-muted transition-colors hover:border-foreground/40 hover:text-foreground"
-              >
-                Back
-              </button>
-              <button
-                type="submit"
-                disabled={!canProceed}
-                className="rounded-xl bg-foreground px-5 py-4 text-lg font-semibold text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                Start Countdown
-              </button>
-            </div>
-          </>
-        )}
+        <button
+          type="submit"
+          disabled={!canProceed}
+          className="mt-8 w-full rounded-xl bg-foreground px-5 py-4 text-lg font-semibold text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Start Countdown
+        </button>
       </form>
     </main>
-  );
-}
-
-function StepIndicator({ step }: { step: 1 | 2 }) {
-  return (
-    <div className="mt-6 flex items-center gap-2 text-xs text-muted">
-      <span className={step === 1 ? "text-foreground font-semibold" : ""}>
-        1. Details
-      </span>
-      <span className="h-px w-6 bg-card-border" />
-      <span className={step === 2 ? "text-foreground font-semibold" : ""}>
-        2. Animation
-      </span>
-    </div>
-  );
-}
-
-function AnimationPreview({ animation }: { animation: Animation }) {
-  // Sample countdown that loops so the change/flip animation is visible.
-  const [seconds, setSeconds] = useState(125);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setSeconds((value) => (value <= 1 ? 125 : value - 1));
-    }, 1200);
-    return () => clearInterval(id);
-  }, []);
-
-  return (
-    <div className="flex h-[170px] items-center justify-center overflow-hidden rounded-xl border border-card-border bg-card/40">
-      <div className="origin-center scale-[0.42]">
-        {animation === "flip" ? (
-          <FlipClock seconds={seconds} />
-        ) : (
-          <CardClock seconds={seconds} variant={animation} />
-        )}
-      </div>
-    </div>
   );
 }
 
