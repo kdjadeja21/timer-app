@@ -26,7 +26,7 @@ function clampNumber(raw: string, max: number): number {
 }
 
 export default function SetupForm({ onStart, initialAnimation }: SetupFormProps) {
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [step, setStep] = useState<1 | 2>(1);
   const [description, setDescription] = useState("");
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -45,15 +45,7 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
       if (canProceed) setStep(2);
       return;
     }
-    if (step === 2) {
-      if (!canProceed) {
-        setStep(1);
-        return;
-      }
-      setStep(3);
-      return;
-    }
-    // step === 3
+    // step === 2
     if (!canProceed) {
       setStep(1);
       return;
@@ -64,9 +56,7 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
   const subtitleText =
     step === 1
       ? "Set up your countdown timer"
-      : step === 2
-      ? "Choose an animation and preview your countdown"
-      : "Customize the message shown when the timer ends";
+      : "Choose an animation and preview your countdown";
 
   return (
     <main className="flex flex-1 items-center justify-center px-6 py-12">
@@ -134,6 +124,29 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
               </div>
             </div>
 
+            {/* Final message */}
+            <div className="mt-6 w-full">
+              <label
+                htmlFor="finalMessage"
+                className="block text-sm font-semibold mb-2"
+              >
+                Final Message
+              </label>
+              <input
+                id="finalMessage"
+                type="text"
+                value={finalMessage}
+                maxLength={MAX_FINAL_MESSAGE}
+                onChange={(e) => setFinalMessage(e.target.value)}
+                placeholder={DEFAULT_FINAL_MESSAGE}
+                className="w-full rounded-xl bg-card border border-card-border px-5 py-4 text-lg outline-none transition-colors placeholder:text-muted focus:border-foreground/40"
+              />
+              <div className="mt-1 flex items-center justify-between text-xs text-muted">
+                <span>Leave blank to use the default message</span>
+                <span>{finalMessage.length}/{MAX_FINAL_MESSAGE}</span>
+              </div>
+            </div>
+
             <button
               type="submit"
               disabled={!canProceed}
@@ -142,7 +155,7 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
               Next
             </button>
           </>
-        ) : step === 2 ? (
+        ) : (
           <>
             {/* Animation selection */}
             <div className="mt-8 w-full">
@@ -169,62 +182,6 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
                 disabled={!canProceed}
                 className="rounded-xl bg-foreground px-5 py-4 text-lg font-semibold text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
               >
-                Next
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Final message */}
-            <div className="mt-8 w-full">
-              <label
-                htmlFor="finalMessage"
-                className="block text-sm font-semibold mb-2"
-              >
-                Final Message
-              </label>
-              <input
-                id="finalMessage"
-                type="text"
-                value={finalMessage}
-                maxLength={MAX_FINAL_MESSAGE}
-                autoFocus
-                onChange={(e) => setFinalMessage(e.target.value)}
-                placeholder={DEFAULT_FINAL_MESSAGE}
-                className="w-full rounded-xl bg-card border border-card-border px-5 py-4 text-lg outline-none transition-colors placeholder:text-muted focus:border-foreground/40"
-              />
-              <div className="mt-1 flex items-center justify-between text-xs text-muted">
-                <span>Leave blank to use the default message</span>
-                <span>{finalMessage.length}/{MAX_FINAL_MESSAGE}</span>
-              </div>
-            </div>
-
-            {/* Preview */}
-            <div className="mt-6 w-full rounded-xl border border-card-border bg-card/40 p-6 flex flex-col items-center gap-2">
-              <div className="text-3xl" aria-hidden>🎉</div>
-              <p className="text-2xl font-bold tracking-tight text-center">
-                {finalMessage.trim() || DEFAULT_FINAL_MESSAGE}
-              </p>
-              <div className="flex gap-3 text-2xl" aria-hidden>
-                <span>🏆</span>
-                <span>⭐</span>
-                <span>🎊</span>
-              </div>
-            </div>
-
-            <div className="mt-8 grid w-full grid-cols-[auto_1fr] gap-4">
-              <button
-                type="button"
-                onClick={() => setStep(2)}
-                className="rounded-xl border border-card-border bg-card px-6 py-4 text-lg font-medium text-muted transition-colors hover:border-foreground/40 hover:text-foreground"
-              >
-                Back
-              </button>
-              <button
-                type="submit"
-                disabled={!canProceed}
-                className="rounded-xl bg-foreground px-5 py-4 text-lg font-semibold text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-              >
                 Start Countdown
               </button>
             </div>
@@ -235,7 +192,7 @@ export default function SetupForm({ onStart, initialAnimation }: SetupFormProps)
   );
 }
 
-function StepIndicator({ step }: { step: 1 | 2 | 3 }) {
+function StepIndicator({ step }: { step: 1 | 2 }) {
   return (
     <div className="mt-6 flex items-center gap-2 text-xs text-muted">
       <span className={step === 1 ? "text-foreground font-semibold" : ""}>
@@ -244,10 +201,6 @@ function StepIndicator({ step }: { step: 1 | 2 | 3 }) {
       <span className="h-px w-6 bg-card-border" />
       <span className={step === 2 ? "text-foreground font-semibold" : ""}>
         2. Animation
-      </span>
-      <span className="h-px w-6 bg-card-border" />
-      <span className={step === 3 ? "text-foreground font-semibold" : ""}>
-        3. Message
       </span>
     </div>
   );
