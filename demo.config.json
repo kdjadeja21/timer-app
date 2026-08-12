@@ -1,0 +1,132 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "output": {
+    "video": "public/demo/product-demo.mp4",
+    "captions": "public/demo/product-demo.vtt",
+    "chapters": "public/demo/product-demo.chapters.json",
+    "draftDir": "public/demo/draft"
+  },
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "fit": "pad",
+    "background": "#000000"
+  },
+  "branding": {
+    "title": "Timer App",
+    "subtitle": "Countdown timers with style"
+  },
+  "tts": {
+    "provider": "edge-tts",
+    "voice": "en-US-AvaNeural",
+    "rate": "+0%"
+  },
+  "sections": [
+    {
+      "id": "welcome",
+      "kind": "title",
+      "text": "Welcome to Timer App — a Cursor-branded countdown timer for focused work and presentations."
+    },
+    {
+      "id": "setup",
+      "route": "/",
+      "waitForText": ["Timer App", "Set up your countdown timer"],
+      "settleMs": 400,
+      "focus": { "selector": "main form", "padding": 24 },
+      "text": "Setup is a two-step flow. First, name your timer, set the duration, and optionally customize the final message."
+    },
+    {
+      "id": "description",
+      "route": "/",
+      "waitForSelector": ["#description"],
+      "focus": { "selector": "#description", "padding": 16 },
+      "text": "Start by naming the timer so the purpose is obvious on screen."
+    },
+    {
+      "id": "duration",
+      "route": "/",
+      "waitForText": ["Hours", "Minutes", "Seconds"],
+      "focus": { "selector": "main form .grid", "padding": 20 },
+      "text": "Set hours, minutes, and seconds independently for any length of countdown."
+    },
+    {
+      "id": "final-message",
+      "route": "/",
+      "waitForSelector": ["#finalMessage"],
+      "focus": { "selector": "#finalMessage", "padding": 16 },
+      "text": "Customize the celebration message shown when time runs out, or keep the default Time's Up."
+    },
+    {
+      "id": "create-timer",
+      "route": "/",
+      "waitForText": ["Next"],
+      "capture": "video",
+      "interactions": [
+        { "type": "type", "selector": "#description", "text": "Team Standup" },
+        { "type": "type", "selector": "label:has-text('Seconds') input", "text": "12" },
+        { "type": "type", "selector": "#finalMessage", "text": "Great work!" },
+        { "type": "click", "selector": "main form button[type='submit']" },
+        { "type": "wait", "ms": 600 },
+        { "type": "click", "selector": "button[aria-haspopup='listbox']" },
+        { "type": "wait", "ms": 400 },
+        { "type": "click", "selector": "ul[role='listbox'] button:has-text('Flip')" },
+        { "type": "wait", "ms": 500 },
+        { "type": "click", "selector": "main form button[type='submit']" },
+        { "type": "wait", "ms": 800 }
+      ],
+      "text": "On the next step, pick a clock animation — Default, Flip, Slide, or Fade — preview it live, then start the countdown."
+    },
+    {
+      "id": "countdown",
+      "route": "/",
+      "waitForText": ["Team Standup", "Pause"],
+      "settleMs": 500,
+      "focus": { "selector": "div.flex.gap-4 > button:first-child", "padding": 12 },
+      "text": "The live countdown shows your chosen animation, a progress bar, and the expected end time."
+    },
+    {
+      "id": "pause-resume",
+      "route": "/",
+      "waitForText": ["Pause"],
+      "capture": "video",
+      "interactions": [
+        { "type": "click", "selector": "button:has-text('Pause')" },
+        { "type": "wait", "ms": 900 },
+        { "type": "click", "selector": "button:has-text('Resume')" },
+        { "type": "wait", "ms": 700 }
+      ],
+      "text": "Pause and resume anytime. Cancel returns you to setup when plans change."
+    },
+    {
+      "id": "fullscreen",
+      "route": "/",
+      "waitForSelector": ["button[aria-label='Enter fullscreen']"],
+      "focus": { "selector": "button[aria-label='Enter fullscreen']", "padding": 20 },
+      "text": "Enter fullscreen for presentations or shared screens — the countdown stays readable from across the room."
+    },
+    {
+      "id": "persistence",
+      "route": "/",
+      "waitForText": ["Team Standup"],
+      "settleMs": 300,
+      "text": "Timer progress is saved in the browser, so a refresh keeps you on the same countdown."
+    },
+    {
+      "id": "times-up",
+      "route": "/",
+      "waitForText": ["Team Standup"],
+      "capture": "video",
+      "interactions": [{ "type": "wait", "ms": 14000 }],
+      "text": "When the clock hits zero, confetti celebrates the finish and a summary shows start, end, and total duration."
+    },
+    {
+      "id": "summary",
+      "route": "/",
+      "waitForText": ["Great work!", "Summary", "Total Duration"],
+      "settleMs": 500,
+      "focus": { "selector": "main .max-w-md", "padding": 24 },
+      "text": "From the summary, start a new countdown and run the flow again whenever you need it."
+    }
+  ]
+}

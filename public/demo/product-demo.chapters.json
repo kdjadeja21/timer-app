@@ -1,0 +1,64 @@
+{
+  "chapters": [
+    {
+      "id": "welcome",
+      "label": "Welcome",
+      "startSec": 0
+    },
+    {
+      "id": "setup",
+      "label": "Setup",
+      "startSec": 6.24
+    },
+    {
+      "id": "description",
+      "label": "Description",
+      "startSec": 14.28
+    },
+    {
+      "id": "duration",
+      "label": "Duration",
+      "startSec": 18.119999999999997
+    },
+    {
+      "id": "final-message",
+      "label": "Final Message",
+      "startSec": 23.519999999999996
+    },
+    {
+      "id": "create-timer",
+      "label": "Create Timer",
+      "startSec": 28.943999999999996
+    },
+    {
+      "id": "countdown",
+      "label": "Countdown",
+      "startSec": 37.583999999999996
+    },
+    {
+      "id": "pause-resume",
+      "label": "Pause Resume",
+      "startSec": 43.51199999999999
+    },
+    {
+      "id": "fullscreen",
+      "label": "Fullscreen",
+      "startSec": 48.791999999999994
+    },
+    {
+      "id": "persistence",
+      "label": "Persistence",
+      "startSec": 55.608
+    },
+    {
+      "id": "times-up",
+      "label": "Times Up",
+      "startSec": 61.007999999999996
+    },
+    {
+      "id": "summary",
+      "label": "Summary",
+      "startSec": 68.73599999999999
+    }
+  ]
+}
