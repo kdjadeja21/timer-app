@@ -17,6 +17,7 @@ import {
 import SetupForm from "./SetupForm";
 import CountdownScreen from "./CountdownScreen";
 import TimesUp from "./TimesUp";
+import { WatchDemoButton } from "./WatchDemoButton";
 
 /* ----------------------------------------------------------------- */
 /* External store backed by localStorage                             */
@@ -196,14 +197,17 @@ export default function TimerApp() {
 
   return (
     <div ref={rootRef} className="relative flex flex-1 flex-col bg-background">
-      <button
-        type="button"
-        onClick={toggleFullscreen}
-        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-        className="absolute right-6 top-6 z-30 rounded-lg border border-card-border bg-card p-2.5 text-muted transition-colors hover:text-foreground"
-      >
-        <FullscreenIcon expanded={isFullscreen} />
-      </button>
+      <div className="absolute right-6 top-6 z-30 flex items-center gap-2">
+        {state.status === "setup" ? <WatchDemoButton /> : null}
+        <button
+          type="button"
+          onClick={toggleFullscreen}
+          aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+          className="rounded-lg border border-card-border bg-card p-2.5 text-muted transition-colors hover:text-foreground"
+        >
+          <FullscreenIcon expanded={isFullscreen} />
+        </button>
+      </div>
       {content}
     </div>
   );

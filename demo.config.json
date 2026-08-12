@@ -41,7 +41,7 @@
       "route": "/",
       "waitForSelector": ["#description"],
       "focus": { "selector": "#description", "padding": 16 },
-      "text": "Give the timer a clear description so everyone knows what the countdown is for."
+      "text": "Start by naming the timer so the purpose is obvious on screen."
     },
     {
       "id": "duration",
@@ -66,13 +66,13 @@
         { "type": "type", "selector": "#description", "text": "Team Standup" },
         { "type": "type", "selector": "label:has-text('Seconds') input", "text": "12" },
         { "type": "type", "selector": "#finalMessage", "text": "Great work!" },
-        { "type": "click", "selector": "button[type='submit']" },
+        { "type": "click", "selector": "main form button[type='submit']" },
         { "type": "wait", "ms": 600 },
         { "type": "click", "selector": "button[aria-haspopup='listbox']" },
         { "type": "wait", "ms": 400 },
         { "type": "click", "selector": "ul[role='listbox'] button:has-text('Flip')" },
         { "type": "wait", "ms": 500 },
-        { "type": "click", "selector": "button[type='submit']" },
+        { "type": "click", "selector": "main form button[type='submit']" },
         { "type": "wait", "ms": 800 }
       ],
       "text": "On the next step, pick a clock animation — Default, Flip, Slide, or Fade — preview it live, then start the countdown."

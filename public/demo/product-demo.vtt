@@ -1,0 +1,57 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.240
+Welcome to Timer App — a Cursor-branded countdown timer for focused work and presentations.
+
+2
+00:00:06.240 --> 00:00:08.067
+Setup is a two-step flow.
+
+3
+00:00:08.067 --> 00:00:14.280
+First, name your timer, set the duration, and optionally customize the final message.
+
+4
+00:00:14.280 --> 00:00:18.120
+Start by naming the timer so the purpose is obvious on screen.
+
+5
+00:00:18.120 --> 00:00:23.520
+Set hours, minutes, and seconds independently for any length of countdown.
+
+6
+00:00:23.520 --> 00:00:28.944
+Customize the celebration message shown when time runs out, or keep the default Time's Up.
+
+7
+00:00:28.944 --> 00:00:37.584
+On the next step, pick a clock animation — Default, Flip, Slide, or Fade — preview it live, then start the countdown.
+
+8
+00:00:37.584 --> 00:00:43.512
+The live countdown shows your chosen animation, a progress bar, and the expected end time.
+
+9
+00:00:43.512 --> 00:00:45.371
+Pause and resume anytime.
+
+10
+00:00:45.371 --> 00:00:48.792
+Cancel returns you to setup when plans change.
+
+11
+00:00:48.792 --> 00:00:55.608
+Enter fullscreen for presentations or shared screens — the countdown stays readable from across the room.
+
+12
+00:00:55.608 --> 00:01:01.008
+Timer progress is saved in the browser, so a refresh keeps you on the same countdown.
+
+13
+00:01:01.008 --> 00:01:08.736
+When the clock hits zero, confetti celebrates the finish and a summary shows start, end, and total duration.
+
+14
+00:01:08.736 --> 00:01:13.800
+From the summary, start a new countdown and run the flow again whenever you need it.
