@@ -1,0 +1,186 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "output": {
+    "video": "public/demo/timer-app-demo.mp4",
+    "captions": "public/demo/timer-app-demo.vtt",
+    "chapters": "public/demo/timer-app-demo.chapters.json",
+    "draftDir": "public/demo/draft"
+  },
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "fit": "pad",
+    "background": "#000000"
+  },
+  "branding": {
+    "title": "Timer App",
+    "subtitle": "A full-screen countdown for meetings and live events"
+  },
+  "auth": {
+    "storageState": "storageState.json"
+  },
+  "tts": {
+    "provider": "edge-tts",
+    "voice": "en-US-AvaNeural",
+    "rate": "+0%"
+  },
+  "sections": [
+    {
+      "id": "intro",
+      "kind": "title",
+      "text": "Timer App turns any meeting or workshop into a full screen countdown that everyone in the room can read."
+    },
+    {
+      "id": "setup-overview",
+      "route": "/",
+      "waitForText": ["Set up your countdown timer"],
+      "settleMs": 400,
+      "text": "Every countdown starts with a two step setup. Step one collects the details, and step two picks how the clock animates."
+    },
+    {
+      "id": "setup-description",
+      "route": "/",
+      "waitForSelector": ["#description"],
+      "settleMs": 400,
+      "focus": { "selector": "#description" },
+      "interaction": {
+        "type": "type",
+        "selector": "#description",
+        "text": "Team Standup"
+      },
+      "text": "Name the countdown first. The description is required, capped at eighty characters with a live counter, and it follows the timer all the way through to the summary."
+    },
+    {
+      "id": "setup-duration",
+      "route": "/",
+      "waitForSelector": [".grid-cols-3 input"],
+      "settleMs": 400,
+      "focus": { "selector": ".grid-cols-3", "padding": 14 },
+      "interaction": {
+        "type": "type",
+        "selector": ".grid-cols-3 label:nth-child(2) input",
+        "text": "15"
+      },
+      "text": "Then set the length in hours, minutes and seconds. Each field takes digits only and clamps itself to a valid range as you type."
+    },
+    {
+      "id": "setup-final-message",
+      "route": "/",
+      "waitForSelector": ["#finalMessage"],
+      "settleMs": 400,
+      "focus": { "selector": "#finalMessage" },
+      "interaction": {
+        "type": "type",
+        "selector": "#finalMessage",
+        "text": "Great work, team!"
+      },
+      "text": "You can also write the message the timer celebrates with at the end. Leave it blank and it falls back to a plain Time's Up."
+    },
+    {
+      "id": "countdown-restored",
+      "route": "http://run.localhost:3000/",
+      "waitForText": ["Team Standup"],
+      "settleMs": 600,
+      "text": "Once a countdown is running, the clock takes over the screen. The timer is stored in the browser, so closing the tab does not lose it. Here is a fifteen minute standup that was paused with thirteen and a half minutes left."
+    },
+    {
+      "id": "countdown-resume",
+      "route": "http://run.localhost:3000/",
+      "waitForText": ["Paused"],
+      "settleMs": 900,
+      "interaction": {
+        "type": "click",
+        "selector": "button:has-text('Resume')"
+      },
+      "text": "Resume picks it up from exactly where it stopped."
+    },
+    {
+      "id": "countdown-clock",
+      "route": "http://run.localhost:3000/",
+      "waitForText": ["Complete"],
+      "settleMs": 3500,
+      "capture": "video",
+      "text": "While it runs, the screen keeps only what matters: the name of the session and digits big enough to read from the back of the room."
+    },
+    {
+      "id": "countdown-progress",
+      "route": "http://run.localhost:3000/",
+      "waitForText": ["Complete"],
+      "settleMs": 700,
+      "focus": { "selector": ".max-w-2xl", "padding": 16 },
+      "text": "Underneath the clock you get the start time, the projected finish, a progress bar and the percentage already elapsed."
+    },
+    {
+      "id": "countdown-fullscreen",
+      "route": "http://run.localhost:3000/",
+      "waitForSelector": ["button[aria-label='Enter fullscreen']"],
+      "settleMs": 700,
+      "focus": { "selector": "button[aria-label='Enter fullscreen'] svg", "padding": 18 },
+      "text": "A toggle in the corner pushes the whole timer into fullscreen for a projector or a second display."
+    },
+    {
+      "id": "countdown-pause",
+      "route": "http://run.localhost:3000/",
+      "waitForText": ["Complete"],
+      "settleMs": 900,
+      "focus": { "selector": "div.mt-10.flex.gap-4", "padding": 14 },
+      "interaction": {
+        "type": "click",
+        "selector": "button:has-text('Pause')"
+      },
+      "text": "Pause freezes the remaining time, and Cancel clears the session and returns you to setup."
+    },
+    {
+      "id": "clock-cards",
+      "route": "http://cards.localhost:3000/",
+      "waitForText": ["Complete"],
+      "settleMs": 3200,
+      "capture": "video",
+      "text": "Step two of setup picks how the clock animates, and four styles ship with the app. Default pops each digit card as it changes."
+    },
+    {
+      "id": "clock-slide",
+      "route": "http://slide.localhost:3000/",
+      "waitForText": ["Complete"],
+      "settleMs": 3200,
+      "capture": "video",
+      "text": "Slide rolls the digits over like an odometer."
+    },
+    {
+      "id": "clock-fade",
+      "route": "http://fade.localhost:3000/",
+      "waitForText": ["Complete"],
+      "settleMs": 3200,
+      "capture": "video",
+      "text": "Fade blurs one digit into the next, and flip is the hinged flip clock you saw a moment ago."
+    },
+    {
+      "id": "times-up",
+      "route": "http://timesup.localhost:3000/",
+      "waitForText": ["Great work, team!"],
+      "settleMs": 3000,
+      "capture": "video",
+      "text": "When the clock reaches zero the timer celebrates with confetti and the custom message you wrote during setup."
+    },
+    {
+      "id": "times-up-summary",
+      "route": "http://timesup.localhost:3000/",
+      "waitForText": ["Summary"],
+      "settleMs": 1100,
+      "focus": { "selector": ".max-w-md", "padding": 16 },
+      "text": "A summary card logs the date, when the session started and ended, and the total time it was scheduled for."
+    },
+    {
+      "id": "start-new",
+      "route": "http://timesup.localhost:3000/",
+      "waitForText": ["Start New Countdown"],
+      "settleMs": 900,
+      "interaction": {
+        "type": "click",
+        "selector": "button:has-text('Start New Countdown')"
+      },
+      "text": "One click clears everything and drops you back at setup, ready for the next session."
+    }
+  ]
+}

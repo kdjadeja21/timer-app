@@ -1,0 +1,97 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.408
+Timer App turns any meeting or workshop into a full screen countdown that everyone in the room can read.
+
+2
+00:00:06.408 --> 00:00:09.447
+Every countdown starts with a two step setup.
+
+3
+00:00:09.447 --> 00:00:14.376
+Step one collects the details, and step two picks how the clock animates.
+
+4
+00:00:14.376 --> 00:00:15.926
+Name the countdown first.
+
+5
+00:00:15.926 --> 00:00:24.480
+The description is required, capped at eighty characters with a live counter, and it follows the timer all the way through to the summary.
+
+6
+00:00:24.480 --> 00:00:27.813
+Then set the length in hours, minutes and seconds.
+
+7
+00:00:27.813 --> 00:00:32.880
+Each field takes digits only and clamps itself to a valid range as you type.
+
+8
+00:00:32.880 --> 00:00:36.746
+You can also write the message the timer celebrates with at the end.
+
+9
+00:00:36.746 --> 00:00:39.816
+Leave it blank and it falls back to a plain Time's Up.
+
+10
+00:00:39.816 --> 00:00:43.489
+Once a countdown is running, the clock takes over the screen.
+
+11
+00:00:43.489 --> 00:00:47.825
+The timer is stored in the browser, so closing the tab does not lose it.
+
+12
+00:00:47.825 --> 00:00:53.064
+Here is a fifteen minute standup that was paused with thirteen and a half minutes left.
+
+13
+00:00:53.064 --> 00:00:56.256
+Resume picks it up from exactly where it stopped.
+
+14
+00:00:56.256 --> 00:01:04.488
+While it runs, the screen keeps only what matters: the name of the session and digits big enough to read from the back of the room.
+
+15
+00:01:04.488 --> 00:01:11.904
+Underneath the clock you get the start time, the projected finish, a progress bar and the percentage already elapsed.
+
+16
+00:01:11.904 --> 00:01:17.832
+A toggle in the corner pushes the whole timer into fullscreen for a projector or a second display.
+
+17
+00:01:17.832 --> 00:01:23.640
+Pause freezes the remaining time, and Cancel clears the session and returns you to setup.
+
+18
+00:01:23.640 --> 00:01:29.024
+Step two of setup picks how the clock animates, and four styles ship with the app.
+
+19
+00:01:29.024 --> 00:01:31.848
+Default pops each digit card as it changes.
+
+20
+00:01:31.848 --> 00:01:34.752
+Slide rolls the digits over like an odometer.
+
+21
+00:01:34.752 --> 00:01:40.560
+Fade blurs one digit into the next, and flip is the hinged flip clock you saw a moment ago.
+
+22
+00:01:40.560 --> 00:01:46.848
+When the clock reaches zero the timer celebrates with confetti and the custom message you wrote during setup.
+
+23
+00:01:46.848 --> 00:01:53.040
+A summary card logs the date, when the session started and ended, and the total time it was scheduled for.
+
+24
+00:01:53.040 --> 00:01:58.344
+One click clears everything and drops you back at setup, ready for the next session.

@@ -1,0 +1,89 @@
+{
+  "chapters": [
+    {
+      "id": "intro",
+      "label": "Intro",
+      "startSec": 0
+    },
+    {
+      "id": "setup-overview",
+      "label": "Setup Overview",
+      "startSec": 6.408
+    },
+    {
+      "id": "setup-description",
+      "label": "Setup Description",
+      "startSec": 14.376000000000001
+    },
+    {
+      "id": "setup-duration",
+      "label": "Setup Duration",
+      "startSec": 24.48
+    },
+    {
+      "id": "setup-final-message",
+      "label": "Setup Final Message",
+      "startSec": 32.88
+    },
+    {
+      "id": "countdown-restored",
+      "label": "Countdown Restored",
+      "startSec": 39.816
+    },
+    {
+      "id": "countdown-resume",
+      "label": "Countdown Resume",
+      "startSec": 53.064
+    },
+    {
+      "id": "countdown-clock",
+      "label": "Countdown Clock",
+      "startSec": 56.256
+    },
+    {
+      "id": "countdown-progress",
+      "label": "Countdown Progress",
+      "startSec": 64.488
+    },
+    {
+      "id": "countdown-fullscreen",
+      "label": "Countdown Fullscreen",
+      "startSec": 71.904
+    },
+    {
+      "id": "countdown-pause",
+      "label": "Countdown Pause",
+      "startSec": 77.832
+    },
+    {
+      "id": "clock-cards",
+      "label": "Clock Cards",
+      "startSec": 83.63999999999999
+    },
+    {
+      "id": "clock-slide",
+      "label": "Clock Slide",
+      "startSec": 91.84799999999998
+    },
+    {
+      "id": "clock-fade",
+      "label": "Clock Fade",
+      "startSec": 94.75199999999998
+    },
+    {
+      "id": "times-up",
+      "label": "Times Up",
+      "startSec": 100.55999999999997
+    },
+    {
+      "id": "times-up-summary",
+      "label": "Times Up Summary",
+      "startSec": 106.84799999999997
+    },
+    {
+      "id": "start-new",
+      "label": "Start New",
+      "startSec": 113.03999999999996
+    }
+  ]
+}
